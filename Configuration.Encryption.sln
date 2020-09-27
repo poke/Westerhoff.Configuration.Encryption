@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Westerhoff.Configuration.En
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Westerhoff.Configuration.Encryption.Test", "Configuration.Encryption.Test\Westerhoff.Configuration.Encryption.Test.csproj", "{36C4AA2C-D8A6-4D24-A3E1-BB54F22DCAA6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Westerhoff.Configuration.Encryption.Utility", "Configuration.Encryption.Utility\Westerhoff.Configuration.Encryption.Utility.csproj", "{93EF39B0-6F28-4F70-89DF-CEF2EA9EBA20}"
+EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EncryptionSample", "sample\EncryptionSample.csproj", "{703617F0-B0A9-4919-BAC7-953B643CEA69}"
 EndProject
 Global
@@ -46,6 +48,18 @@ Global
 		{36C4AA2C-D8A6-4D24-A3E1-BB54F22DCAA6}.Release|x64.Build.0 = Release|Any CPU
 		{36C4AA2C-D8A6-4D24-A3E1-BB54F22DCAA6}.Release|x86.ActiveCfg = Release|Any CPU
 		{36C4AA2C-D8A6-4D24-A3E1-BB54F22DCAA6}.Release|x86.Build.0 = Release|Any CPU
+		{93EF39B0-6F28-4F70-89DF-CEF2EA9EBA20}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{93EF39B0-6F28-4F70-89DF-CEF2EA9EBA20}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{93EF39B0-6F28-4F70-89DF-CEF2EA9EBA20}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{93EF39B0-6F28-4F70-89DF-CEF2EA9EBA20}.Debug|x64.Build.0 = Debug|Any CPU
+		{93EF39B0-6F28-4F70-89DF-CEF2EA9EBA20}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{93EF39B0-6F28-4F70-89DF-CEF2EA9EBA20}.Debug|x86.Build.0 = Debug|Any CPU
+		{93EF39B0-6F28-4F70-89DF-CEF2EA9EBA20}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{93EF39B0-6F28-4F70-89DF-CEF2EA9EBA20}.Release|Any CPU.Build.0 = Release|Any CPU
+		{93EF39B0-6F28-4F70-89DF-CEF2EA9EBA20}.Release|x64.ActiveCfg = Release|Any CPU
+		{93EF39B0-6F28-4F70-89DF-CEF2EA9EBA20}.Release|x64.Build.0 = Release|Any CPU
+		{93EF39B0-6F28-4F70-89DF-CEF2EA9EBA20}.Release|x86.ActiveCfg = Release|Any CPU
+		{93EF39B0-6F28-4F70-89DF-CEF2EA9EBA20}.Release|x86.Build.0 = Release|Any CPU
 		{703617F0-B0A9-4919-BAC7-953B643CEA69}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{703617F0-B0A9-4919-BAC7-953B643CEA69}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{703617F0-B0A9-4919-BAC7-953B643CEA69}.Debug|x64.ActiveCfg = Debug|Any CPU
