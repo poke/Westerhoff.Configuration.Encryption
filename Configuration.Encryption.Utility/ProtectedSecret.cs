@@ -1,9 +1,11 @@
+using System.Text;
+
 namespace Westerhoff.Configuration.Encryption.Utility
 {
     /// <summary>
     /// Protected secret.
     /// </summary>
-    public class ProtectedSecret
+    public sealed class ProtectedSecret
     {
         /// <summary>
         /// Encrypted secret configuration value.
@@ -18,20 +20,23 @@ namespace Westerhoff.Configuration.Encryption.Utility
         { get; }
 
         /// <summary>
-        /// Label.
+        /// Get the configuration value for the protected secret.
         /// </summary>
-        public string Label
-        { get; private set; }
-
-        public string SecretText
+        /// <param name="label">Optional label to include in the configuration value.</param>
+        /// <param name="includeCertThumbprint">Whether to include the certificate thumbprint.</param>
+        /// <returns>Combined configuration value for the protected secret.</returns>
+        public string GetConfigurationValue(string label = null, bool includeCertThumbprint = true)
         {
-            get
-            {
-                if (string.IsNullOrWhiteSpace(Label))
-                    return $"§#§{CertificateThumbprint}§{EncryptedValue}";
-                else
-                    return $"§#§#{Label}#{CertificateThumbprint}§{EncryptedValue}";
-            }
+            var value = new StringBuilder("§#§");
+
+            if (!string.IsNullOrWhiteSpace(label))
+                value.Append($"{label.Replace("#", "").Replace("§", "")}#");
+
+            if (includeCertThumbprint)
+                value.Append($"{CertificateThumbprint}§");
+
+            value.Append(EncryptedValue);
+            return value.ToString();
         }
 
         /// <summary>
@@ -45,15 +50,8 @@ namespace Westerhoff.Configuration.Encryption.Utility
             CertificateThumbprint = certificateThumbprint;
         }
 
-        /// <summary>
-        /// Update the label of this secret.
-        /// </summary>
-        /// <param name="label">Updated label.</param>
-        public void SetLabel(string label)
-            => Label = label;
-
         /// <inheritdoc/>
         public override string ToString()
-            => SecretText;
+            => GetConfigurationValue();
     }
 }
