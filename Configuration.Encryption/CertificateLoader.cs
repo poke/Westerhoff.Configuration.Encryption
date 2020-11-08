@@ -9,17 +9,31 @@ namespace Westerhoff.Configuration.Encryption
     public static class CertificateLoader
     {
         /// <summary>
-        /// Load a certificate from the certificate store.
+        /// Load a certificate from the certificate store by its distinguished name.
         /// </summary>
         /// <param name="distinguishedName">Distinguished name of the certificate.</param>
         /// <param name="storeName">Certificate store name.</param>
         /// <param name="storeLocation">Certificate store location.</param>
         /// <param name="validOnly">Whether to only look for a valid certificate.</param>
         /// <returns>Found certificate.</returns>
-        public static X509Certificate2 LoadCertificateFromStore(string distinguishedName, StoreName storeName = StoreName.My, StoreLocation storeLocation = StoreLocation.LocalMachine, bool validOnly = true)
+        public static X509Certificate2 LoadCertificateByName(string distinguishedName, StoreName storeName = StoreName.My, StoreLocation storeLocation = StoreLocation.LocalMachine, bool validOnly = true)
         {
             using (var store = new X509Store(storeName, storeLocation))
                 return FindCertificate(store, X509FindType.FindBySubjectDistinguishedName, distinguishedName, validOnly);
+        }
+
+        /// <summary>
+        /// Load a certificate from the certificate store by its thumbprint.
+        /// </summary>
+        /// <param name="thumbprint">Thumbprint of the certificate.</param>
+        /// <param name="storeName">Certificate store name.</param>
+        /// <param name="storeLocation">Certificate store location.</param>
+        /// <param name="validOnly">Whether to only look for a valid certificate.</param>
+        /// <returns>Found certificate.</returns>
+        public static X509Certificate2 LoadCertificateByThumbprint(string thumbprint, StoreName storeName = StoreName.My, StoreLocation storeLocation = StoreLocation.LocalMachine, bool validOnly = true)
+        {
+            using (var store = new X509Store(storeName, storeLocation))
+                return FindCertificate(store, X509FindType.FindByThumbprint, thumbprint, validOnly);
         }
 
         /// <summary>

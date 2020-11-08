@@ -1,8 +1,5 @@
-using System;
 using System.IO;
 using System.Linq;
-using System.Security.Cryptography;
-using System.Security.Cryptography.X509Certificates;
 using Microsoft.Extensions.Configuration.Json;
 
 namespace Westerhoff.Configuration.Encryption
@@ -30,32 +27,13 @@ namespace Westerhoff.Configuration.Encryption
         {
             base.Load(stream);
 
-            using (var key = GetKey())
+            using (var protector = new ConfigurationProtector(_source.DefaultCertificateName, _source.RequireValidCertificates))
             {
                 foreach (var config in Data.ToArray())
                 {
-                    if (config.Value.StartsWith("§#§"))
-                    {
-                        var value = config.Value.Substring(3);
-                        Data[config.Key] = EncryptionUtility.Decrypt(value, key);
-                    }
+                    if (protector.TryDecryptValue(config.Value, out var decryptedValue))
+                        Data[config.Key] = decryptedValue;
                 }
-            }
-        }
-
-        private RSA GetKey()
-        {
-            if (string.IsNullOrEmpty(_source.DefaultCertificateName))
-                throw new InvalidOperationException("Default certificate is not set");
-
-            using (var cert = CertificateLoader.LoadCertificateFromStore(_source.DefaultCertificateName, validOnly: _source.RequireValidCertificates))
-            {
-                if (cert is null)
-                    throw new InvalidOperationException("Default certificate was not found in certificate store");
-                if (!cert.HasPrivateKey)
-                    throw new InvalidOperationException("Default certificate has no private key");
-
-                return cert.GetRSAPrivateKey();
             }
         }
     }
