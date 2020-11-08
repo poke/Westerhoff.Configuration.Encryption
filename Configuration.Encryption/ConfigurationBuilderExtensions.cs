@@ -17,8 +17,9 @@ namespace Microsoft.Extensions.Configuration
         /// <param name="defaultCertificateName">The distinguished name of the default certificate to use.</param>
         /// <param name="optional">Whether the file is optional.</param>
         /// <param name="reloadOnChange">Whether to reload the configuration when the file is changed.</param>
+        /// <param name="requireValidCertificates">Whether to require certificates to be valid.</param>
         /// <returns>Configuration builder.</returns>
-        public static IConfigurationBuilder AddEncryptedJsonFile(this IConfigurationBuilder builder, string path, string defaultCertificateName, bool optional = false, bool reloadOnChange = false)
+        public static IConfigurationBuilder AddEncryptedJsonFile(this IConfigurationBuilder builder, string path, string defaultCertificateName, bool optional = false, bool reloadOnChange = false, bool requireValidCertificates = true)
         {
             if (builder is null)
                 throw new ArgumentNullException(nameof(builder));
@@ -30,6 +31,7 @@ namespace Microsoft.Extensions.Configuration
             return builder.AddEncryptedJsonFile(s =>
             {
                 s.DefaultCertificateName = defaultCertificateName;
+                s.RequireValidCertificates = requireValidCertificates;
                 s.Path = path;
                 s.Optional = optional;
                 s.ReloadOnChange = reloadOnChange;

@@ -17,6 +17,12 @@ namespace Westerhoff.Configuration.Encryption
         { get; set; }
 
         /// <summary>
+        /// Whether to require certificates to be valid.
+        /// </summary>
+        public bool RequireValidCertificates
+        { get; set; } = true;
+
+        /// <summary>
         /// Builds the <see cref="EncryptedJsonConfigurationProvider"/> for this source.
         /// </summary>
         /// <param name="builder">The configuration builder.</param>

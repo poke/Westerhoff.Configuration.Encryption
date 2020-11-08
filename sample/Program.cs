@@ -23,7 +23,7 @@ namespace EncryptionSample
                 .ConfigureAppConfiguration(builder =>
                 {
                     builder.Sources.Clear();
-                    builder.AddEncryptedJsonFile("securesettings.json", "CN=ConfigurationEncryptionExample1");
+                    builder.AddEncryptedJsonFile("securesettings.json", "CN=ConfigurationEncryptionExample1", requireValidCertificates: false);
                 });
     }
 }

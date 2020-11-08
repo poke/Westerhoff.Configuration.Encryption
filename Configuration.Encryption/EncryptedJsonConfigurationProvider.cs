@@ -48,7 +48,7 @@ namespace Westerhoff.Configuration.Encryption
             if (string.IsNullOrEmpty(_source.DefaultCertificateName))
                 throw new InvalidOperationException("Default certificate is not set");
 
-            using (var cert = CertificateLoader.LoadCertificateFromStore(_source.DefaultCertificateName))
+            using (var cert = CertificateLoader.LoadCertificateFromStore(_source.DefaultCertificateName, validOnly: _source.RequireValidCertificates))
             {
                 if (cert is null)
                     throw new InvalidOperationException("Default certificate was not found in certificate store");

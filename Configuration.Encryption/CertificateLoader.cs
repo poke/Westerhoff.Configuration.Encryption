@@ -14,20 +14,23 @@ namespace Westerhoff.Configuration.Encryption
         /// <param name="distinguishedName">Distinguished name of the certificate.</param>
         /// <param name="storeName">Certificate store name.</param>
         /// <param name="storeLocation">Certificate store location.</param>
+        /// <param name="validOnly">Whether to only look for a valid certificate.</param>
         /// <returns>Found certificate.</returns>
-        public static X509Certificate2 LoadCertificateFromStore(string distinguishedName, StoreName storeName = StoreName.My, StoreLocation storeLocation = StoreLocation.LocalMachine)
+        public static X509Certificate2 LoadCertificateFromStore(string distinguishedName, StoreName storeName = StoreName.My, StoreLocation storeLocation = StoreLocation.LocalMachine, bool validOnly = true)
         {
             using (var store = new X509Store(storeName, storeLocation))
-                return LoadCertificateFromStoreInternal(store, distinguishedName);
+                return FindCertificate(store, X509FindType.FindBySubjectDistinguishedName, distinguishedName, validOnly);
         }
 
         /// <summary>
-        /// Load a certificate from the certificate store.
+        /// Find a certificate in the certificate store.
         /// </summary>
         /// <param name="store">Certificate store.</param>
-        /// <param name="distinguishedName">Distinguished name of the certificate.</param>
-        /// <returns>Found certificate.</returns>
-        private static X509Certificate2 LoadCertificateFromStoreInternal(X509Store store, string distinguishedName)
+        /// <param name="findType">Certificate find type.</param>
+        /// <param name="findValue">Search criteria.</param>
+        /// <param name="validOnly">Whether to only look for a valid certificate.</param>
+        /// <returns>Found certificate, or <c>null</c>.</returns>
+        private static X509Certificate2 FindCertificate(X509Store store, X509FindType findType, object findValue, bool validOnly)
         {
             X509Certificate2Collection storeCertificates = null;
             X509Certificate2 certificate = null;
@@ -35,7 +38,7 @@ namespace Westerhoff.Configuration.Encryption
             {
                 store.Open(OpenFlags.ReadOnly);
                 storeCertificates = store.Certificates;
-                certificate = storeCertificates.Find(X509FindType.FindBySubjectDistinguishedName, distinguishedName, validOnly: true)
+                certificate = storeCertificates.Find(findType, findValue, validOnly)
                     .OfType<X509Certificate2>()
                     .OrderByDescending(c => c.NotAfter)
                     .FirstOrDefault();
