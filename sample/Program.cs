@@ -22,7 +22,10 @@ namespace EncryptionSample
             Host.CreateDefaultBuilder(args)
                 .ConfigureAppConfiguration(builder =>
                 {
-                    builder.Sources.Clear();
+                    // augment existing JSON file sources (appsettings.json, appsettings.<env>.json)
+                    builder.EncryptJsonFileSources("CN=ConfigurationEncryptionExample2", requireValidCertificates: false);
+
+                    // add an additional encrypted JSON file source
                     builder.AddEncryptedJsonFile("securesettings.json", "CN=ConfigurationEncryptionExample1", requireValidCertificates: false);
                 });
     }

@@ -38,6 +38,16 @@ Host.CreateDefaultBuilder(args)
     });
 ```
 
+If you want to support encrypted configuration values in the default JSON files `appsettings.json` and `appsettings.<env>.json`, you can use the `EncryptJsonFileSources` extension method to augment the already registered JSON configuration sources for encryption support:
+
+```csharp
+Host.CreateDefaultBuilder(args)
+    .ConfigureAppConfiguration(builder =>
+    {
+        builder.EncryptJsonFileSources("CN=ConfigurationEncryptionExample2", requireValidCertificates: false);
+    });
+```
+
 ### Creating a certificate
 
 The library supports any *data encipherment* certificate with a sufficiently strong key. While reusing an existing certificate is theoretically possible, using a dedicated certificate created explicitly for the purpose of encrypting your configuration is recommended.
