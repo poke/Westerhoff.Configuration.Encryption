@@ -12,6 +12,8 @@
     <PackageId>Westerhoff.Configuration.Encryption.Utility</PackageId>
     <Description>Utility UI for encrypting secrets for the Westerhoff.Configuration.Encryption package.</Description>
     <Product>$(PackageId)</Product>
+
+    <DeterministicSourcePaths Condition="'$(EnableSourceLink)' == ''">false</DeterministicSourcePaths>
   </PropertyGroup>
 
 </Project>
